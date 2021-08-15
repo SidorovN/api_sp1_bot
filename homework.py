@@ -54,12 +54,15 @@ def send_message(message):
 
 def main():
     logging.info('Бот запущен')
+    current_timestamp = int(time.time())
 
     while True:
+
         try:
             time.sleep(5 * 60)
-            current_timestamp = int(time.time())
-            homework = get_homeworks(current_timestamp)
+            homeworks = get_homeworks(current_timestamp)
+            homework = homeworks.get('homeworks')[0]
+            current_timestamp = homeworks.get('current_date')
             if not homework:
                 continue
             if homework['status'] not in STATUSES:
